@@ -3,6 +3,7 @@
 {% block content %}
 		<!-- Main Section Start -->
 		<div class="main-section">
+            
 			<div class="page-section nopadding cs-nomargin" style="margin-top: 0px;padding-top: 60px;padding-bottom: 60px;margin-bottom: 0px;">
 				<div class="container">
 					<div class="row">
@@ -65,46 +66,66 @@
                                             </div>
                                         </li>
                                         <li>
-                                            
                                             <ul class="errorlist">
                                                 {% for field in form %}
                                                         {% if field.errors %}
                                                        
                                                             
                                                                 {% for error in field.errors  %}
+                                                                
+                                            
+                                                                <div id="msggfail" class="alert alert-danger" timeout="5s" role="alert">
 
-                                                                <div class="alert alert-danger" role="alert">
                                                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                       </button>
-                                                                    <li style="color:red">{{error}}</li>
-                                                                  </div>
-            
+                                                                    <li style="color:red " font-timeout="2s"  >{{error}}</li>
+                                                                </div>
+                                                                <script>
+                                                                    $('#msggfail').show();
+                                                                    setTimeout(function() { $('#msggfail').hide(); }, 5000);
+                                                                </script>
                                                                 
-            
+                                                                
+
+                                                                    
+                                            
+                                                               
+                                            
                                                                 {% endfor %}
                                                             
                                                           
                                                             
                                                         {% endif %}
-
+                                                        
+                                            
                                                 {% endfor %}
-
+                                                
+                                                
+                                            
                                                     
                                                          
                                                 {% if form.non_field_errors %}
-                                                    <div class="alert alert-danger" role="alert">
+                                                    <div id="msgfail" class="alert alert-danger" role="alert" >
+
                                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                           </button>
+                                                        
                                                         <li style="color:red">{{form.non_field_errors}}</li>
+                                                        
                                                     </div>
+                                                    <script>
+                                                        $('#msgfail').show();
+                                                        setTimeout(function() { $('#msgfail').hide(); }, 5000);
+                                                    </script>
                                                 {% endif %}
                                                           
                                                         
                                                     
                                                 
                                             </ul>
+                                            
                                                
                                             <div class="row">
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
