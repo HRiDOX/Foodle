@@ -73,3 +73,18 @@ def registerVendor(request):
     }
 
     return render(request, 'accounts/registerVendor.html',context)
+
+
+def login(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+        
+    return render(request, 'accounts/login.html')
+def login_vendor(request):
+    return render(request, 'accounts/login_vendor.html')
+
+def logout(request):
+    return
+def dashboard(request):
+    return
