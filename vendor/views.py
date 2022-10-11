@@ -11,7 +11,7 @@ def vprofile(request):
 
     context = {
         'profile_form': profile_form,
-        'vendor_form' : vendorForm,
+        'vendor_form' :  vendor_form,
     }
     return render(request,'vendor/vprofile.html', context)
 
