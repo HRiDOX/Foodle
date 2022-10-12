@@ -90,8 +90,8 @@ def add_category(request):
             form.save()
             messages.success(request, 'Category added successfully!')
             return redirect('menu_builder')
-    #    else:
-    #        print(form.errors)
+        else:
+            print(form.errors)
 
     else:
         form = CategoryForm()
