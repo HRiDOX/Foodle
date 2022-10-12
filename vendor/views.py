@@ -42,4 +42,13 @@ def vprofile(request):
     }
     return render(request,'vendor/vprofile.html', context)
 
+def menu_builder(request):
+    #vendor = get_vendor(request)
+    #categories = Category.objects.filter(vendor=vendor).order_by('created_at')
+    #context = {
+    #    'categories': categories,
+    #}
+    return render(request, 'vendor/menu_builder.html')#, context)
+
+
 
