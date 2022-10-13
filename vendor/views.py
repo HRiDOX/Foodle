@@ -132,7 +132,21 @@ def delete_category(request, pk=None):
     return redirect('menu_builder')
 
 def add_food(request):
-    form = FoodItemForm()
+    if request.method == 'POST':
+        form = FoodItemForm(request.POST, request.FILES)
+        if form.is_valid():
+            foodtitle = form.cleaned_data['food_title']
+            food = form.save(commit=False)
+            food.vendor = get_vendor(request)
+            food.slug = slugify(foodtitle)
+            form.save()
+            messages.success(request, 'Food Item added successfully!')
+            return redirect('fooditems_by_category', food.category.id)
+        else:
+            print(form.errors)
+    else:
+        form = FoodItemForm()
+
     context = {
         'form': form,
     }
