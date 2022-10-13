@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404,redirect, render
 from .forms import VendorForm
 from accounts.forms import UserProfileForm
 
-from menu.forms import CategoryForm#, FoodItemForm
+from menu.forms import CategoryForm, FoodItemForm
 
 from accounts.models import UserProfile
 from .models import Vendor
@@ -130,7 +130,14 @@ def delete_category(request, pk=None):
     category.delete()
     messages.success(request, 'Category has been deleted successfully!')
     return redirect('menu_builder')
-         
+
+def add_food(request):
+    form = FoodItemForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'vendor/add_food.html', context)
+
 
           
 
