@@ -24,7 +24,7 @@
                             <div class="listing simple">
                                 <ul>
                                     {% for vendor in vendors %}
-                                    <li>
+                                    <li style="line-height: 15px;">
                                         <div class="img-holder">
                                             <figure>
                                                 <a href="#">
@@ -42,6 +42,9 @@
                                                     <a href="listing-detail.html">{{vendor.vendor_name}}</a>
                                                 </h5>
                                             </div>
+                                            {% if vendor.user_profile.address %}
+                                            <span><small class="text-muted">{{ vendor.user_profile.address }}</small></span>
+                                            {% endif %}
                                         </div>
                                         <div class="list-option">
 
