@@ -60,12 +60,13 @@ def vendor_detail(request, vendor_slug):
     return render(request, 'marketplace/vendor_detail.html', context)
 
 
-#def add_to_cart(request, food_id):
+def add_to_cart(request, food_id):
+    return HttpResponse('Testing')
 #    if request.user.is_authenticated:
 #        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-#            # Check if the food item exists
+            # Check if the food item exists
 #            try:
-#                fooditem = FoodItem.objects.get(id=food_id)
+#               fooditem = FoodItem.objects.get(id=food_id)
 #                # Check if the user has already added that food to the cart
 #                try:
 #                    chkCart = Cart.objects.get(user=request.user, fooditem=fooditem)
