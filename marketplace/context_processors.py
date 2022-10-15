@@ -17,7 +17,7 @@ def get_cart_counter(request):
     return dict(cart_count=cart_count)
 
 
-def get_cart_ammounts(request):
+def get_cart_amounts(request):
     subtotal = 0
     tax = 0
     grand_total = 0
