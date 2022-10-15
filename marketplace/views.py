@@ -62,4 +62,24 @@ def vendor_detail(request, vendor_slug):
 
 def add_to_cart(request, food_id):
     if request.user.is_authenticated:
-        pass
+        #Check food item is exist
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+
+            try:
+                fooditem = FoodItem.objects.get(id=food_id)
+                #Check if te user has already added tjat food to the cart
+                try:
+                    chkCart = Cart.objects.get(user=request.user,fooditem=fooditem)
+                    #Increase the cart quantity
+                    chkCart.quantity += 1
+                    chkCart.save()
+                    return JsonResponse({'status':'Success','message':'Increased the cart quantity'})
+                except:
+                    chkCart = Cart.objects.create(user=request.user,fooditem=fooditem,quantity=1)
+                    return JsonResponse({'status':'Success','message': 'Added the food to the cart'})
+            except:
+                return JsonResponse({'status':'Failed','message':'This Food Does Not Exist'})
+        else:
+            return JsonResponse({'status':'Success','message':'Invalid Request'})
+    else:
+        return JsonResponse({'status':'Failed','message':'Please Login To Continue'})
