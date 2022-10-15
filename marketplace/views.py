@@ -1,4 +1,4 @@
-#from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse#, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 #from accounts.models import UserProfile
@@ -7,7 +7,7 @@ from menu.models import Category, FoodItem
 
 from vendor.models import Vendor
 from django.db.models import Prefetch
-#from .models import Cart
+from .models import Cart
 #from django.contrib.auth.decorators import login_required
 #from django.db.models import Q
 #
@@ -61,7 +61,7 @@ def vendor_detail(request, vendor_slug):
 
 
 def add_to_cart(request, food_id):
-    return HttpResponse('Testing')
+    return HttpResponse('tESTING')
 #    if request.user.is_authenticated:
 #        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             # Check if the food item exists
