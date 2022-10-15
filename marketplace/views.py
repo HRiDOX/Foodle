@@ -1,22 +1,13 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
-#from accounts.models import UserProfile
-#from .context_processors import get_cart_counter, get_cart_amounts
+
+from .context_processors import get_cart_counter
 from menu.models import Category, FoodItem
 
 from vendor.models import Vendor
 from django.db.models import Prefetch
 from .models import Cart
-#from django.contrib.auth.decorators import login_required
-#from django.db.models import Q
-#
-#from django.contrib.gis.geos import GEOSGeometry
-#from django.contrib.gis.measure import D # ``D`` is a shortcut for ``Distance``
-#from django.contrib.gis.db.models.functions import Distance
-#
-#from datetime import date, datetime
-#from orders.forms import OrderForm
 
 
 def marketplace(request):
@@ -70,10 +61,10 @@ def add_to_cart(request, food_id):
                     #Increase the cart quantity
                     chkCart.quantity += 1
                     chkCart.save()
-                    return JsonResponse({'status':'Success','message':'Increased the cart quantity'})
+                    return JsonResponse({'status':'Success','message':'Increased the cart quantity','cart_counter': get_cart_counter(request),'qty': chkCart.quantity})
                 except:
                     chkCart = Cart.objects.create(user=request.user,fooditem=fooditem,quantity=1)
-                    return JsonResponse({'status':'Success','message': 'Added the food to the cart'})
+                    return JsonResponse({'status':'Success','message': 'Added the food to the cart','cart_counter': get_cart_counter(request),'qty': chkCart.quantity})
             except:
                 return JsonResponse({'status':'Failed','message':'This Food Does Not Exist'})
         else:
