@@ -77,10 +77,24 @@
 
             //console.log(position);
     
-            // var lat = '19.0713949'
-            // var lng = '72.9984126'
+           
     
             // hit AJAX request to googlemaps api endpoint and get the location data using those lat and lng
+            var GOOGLE_API_KEY = "{{ GOOGLE_API_KEY }}"
+            var url = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lng+"+&key="+GOOGLE_API_KEY
+            
+
+            $.ajax({
+                url:url,
+                type:"GET",
+                success: function(response){
+                    var current_location = response.results[0].formatted_address
+                    //console.log(response)
+                    x.value = current_location
+                    //sessionStorage.setItem("current_location",current_location)
+                    //window.location = '?lat='+lat+'&lng='+lng
+                }
+            })
             
         }
         </script>
