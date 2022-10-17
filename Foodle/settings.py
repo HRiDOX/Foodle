@@ -14,6 +14,7 @@ from ctypes import cast
 from pathlib import Path
 #newly add ny me-hridoy
 from decouple import config
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -162,3 +163,7 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'foodle<foodledp2@gmail.com>'
 
 GOOGLE_API_KEY = 'AIzaSyCJE2raJiWpR-iC1y3qXmeAOOeFog4Mcdg'
+
+os.environ['PATH'] = os.path.join(BASE_DIR, 'env\Lib\site-packages\osgeo') + ';' + os.environ['PATH']
+os.environ['PROJ_LIB'] = os.path.join(BASE_DIR, 'env\Lib\site-packages\osgeo\data\proj') + ';' + os.environ['PATH']
+GDAL_LIBRARY_PATH = os.path.join(BASE_DIR, 'env\Lib\site-packages\osgeo\gdal303.dll')
