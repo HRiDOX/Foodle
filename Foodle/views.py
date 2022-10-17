@@ -22,9 +22,11 @@ def get_or_set_current_location(request):
 
 
 
-        
+
+
 def home(request):
     if get_or_set_current_location(request) is not None:
+
         pnt = GEOSGeometry('POINT(%s %s)' % (get_or_set_current_location(request)))
 
         vendors = Vendor.objects.filter(user_profile__location__distance_lte=(pnt, D(km=1000))).annotate(distance=Distance("user_profile__location", pnt)).order_by("distance")
@@ -36,8 +38,7 @@ def home(request):
     context = {
         'vendors': vendors,
     }
-
-    return render(request, 'home.html',context)
+    return render(request, 'home.html', context)
 
 
 
