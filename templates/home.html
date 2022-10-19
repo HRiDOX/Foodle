@@ -5,16 +5,15 @@
 <div class="main-section">
 	<!-- Home Pages Elements Strat -->
 	<!-- Main Search Start -->
-	<div class="page-section nopadding cs-nomargin" style="padding-top: 200px; padding-bottom: 150px; margin-bottom: 0px; background: url({% static 'extra-images/bg-image1.jpg' %}) no-repeat center / cover;">
+	<div class="page-section nopadding cs-nomargin" style="padding-top: 200px; padding-bottom: 150px; margin-bottom: 0px; background: url({% static 'extra-images/levender-bg.jpg' %}) no-repeat center / cover;">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
 					<div class="element-title">
 						<h1 style="font-size: 40px; color: #505050; text-transform: uppercase; line-height: 50px; margin-bottom: 25px; text-align:center;">
-							We are in the business of food<br>our restaurants do</h1>
+							WELCOME FOOD LOVERS</h1>
 						<p style="font-size: 18px; letter-spacing: 1px; color: #505050; text-align:center;">
-							Ridiculus sociosqu
-							cursus neque cursus curae ante scelerisque vehicula.</p>
+							Search for Restaurants or Foods by........</p>
 					</div>
 				</div>
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
@@ -22,10 +21,11 @@
 						<form action="{% url 'search' %}" method="GET">
 							<div class="row">
 								<div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
-									<div class="field-holder">
-										<input type="text" name="keyword" placeholder="Resturant name or Food name">
+									<div style="background-color:#333399 ;" class="field-holder">
+										<input style="background:white ;" type="text" name="keyword" placeholder="Resturant name or Food name">
 									</div>
 								</div>
+								
 								<div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
 									<div class="field-holder">
 										<ul>
@@ -56,7 +56,21 @@
 								</div>
 								<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 									<div class="field-holder">
-										<input type="submit" value="Search">
+										<input style="background:#333399 ;
+										margin: 0;
+    									padding: 10px 15px;
+    									border-radius: 10px;
+    									border: none;
+    									-webkit-box-shadow: none;
+    									box-shadow: none;
+    									width: 100%;
+    									height: 50px;
+    									line-height: 30px;
+    									font-size: 18px;
+    									letter-spacing: 1px;
+    									text-transform: uppercase;
+    									color: #fff;
+										" type="submit" value="Search">
 									</div>
 								</div>
 							</div>

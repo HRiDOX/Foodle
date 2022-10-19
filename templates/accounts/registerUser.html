@@ -1,156 +1,249 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %}
-		<!-- Main Section Start -->
-		<div class="main-section">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Foodle</title>
+    <!-- Google Font Family Link Start -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat:400,700" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800" />
+    <!-- Google Font Family Link End -->
+
+    <!-- CSS -->
+    <link href="{% static 'css/iconmoon.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link href="{% static 'css/bootstrap-slider.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="{% static 'css/regi_log.css' %}" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet" />
+
+    <!-- JAVASCRIPT -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="{% static 'js/modernizr.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    {% if '/' == request.path or 'profile' in request.path %}
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key={{GOOGLE_API_KEY}}&libraries=places&callback=initAutoComplete"
+        defer></script>
+    {% endif %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script type="application/x-javascript">
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <style>
+        body {
+            background: #5252b8;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient(to top, #5252b8, #c26fa2);
+            background: -moz-linear-gradient(to top, #5252b8, #c26fa2);
+            background: -o-linear-gradient(to top, #cb9fdc, #c26fa2);
+            background: linear-gradient(to top, #cb9fdc, #9696d4);
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: 'Roboto', sans-serif;
+
             
-			<div class="page-section nopadding cs-nomargin" style="margin-top: 0px;padding-top: 60px;padding-bottom: 60px;margin-bottom: 0px;">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-							<div class="user-dashboard loader-holder">
-								<div class="user-holder">
-                            <h4 class="text-center" style="margin-bottom: 0;">WELCOME TO FOODLE</h4>
-                            <p class="text-center">Please fill this form to get yourself onboarded in the foodle marketplace.</p>
-                            <hr>
-                            <div id="restaurant-sets-holder">
-                                <form action="{% url 'registerUser' %}" class="form-fields-set foodbakery-dev-restaurant-form" method="post" >
-                                    {% csrf_token %}
-                                    <ul class="register-add-restaurant-tab-container restaurant-information-tab-container">
-                                        <li>
-                                            <div class="row">
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="row">
-                                                        <ul >
-                                                            <li>
-                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                                    <div class="field-holder">
-                                                                        <label>First name</label>{{form.first_name}}
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                                    <div class="field-holder">
-                                                                        <label>Last name</label>{{form.last_name}}
-                                                                    </div>
-                                                                </div>
-                                                                
-                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                                    <div class="field-holder">
-                                                                        <label>Email Address</label>{{form.email}}
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                                    <div class="field-holder">
-                                                                        <label>Username</label>{{form.username}}
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            
-                                                            <li>
-                                                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                                    <div class="field-holder">
-                                                                        <label>Password</label>
-                                                                        {{form.password}}
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                                    <div class="field-holder">
-                                                                        <label>Confirm Password</label>
-                                                                        {{form.confirm_password}}
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <ul class="errorlist">
-                                                {% for field in form %}
-                                                        {% if field.errors %}
-                                                       
-                                                            
-                                                                {% for error in field.errors  %}
-                                                                
-                                            
-                                                                <div id="msggfail" class="alert alert-danger" timeout="5s" role="alert">
+        }
+        .field-holder textarea, .field-holder input.field-input[type=date], .field-holder input[type=datetime], .field-holder input[type=datetime-local], .field-holder input[type=email], .field-holder input[type=month], .field-holder input[type=number], .field-holder input[type=password], .field-holder input[type=range], .field-holder input[type=search], .field-holder input[type=tel], .field-holder input[type=text], .field-holder input[type=time], .field-holder input[type=url], .field-holder input[type=week] { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-box-shadow: none; box-shadow: none; box-sizing: border-box; color: #bbd3f9; font-size: 12px; height: 40px; line-height: 40px; padding: 0 15px; width: 100%; border: 1px solid #eceef4; font-family: 'Open Sans', sans-serif; font-weight: 400; }
+    </style>
+</head>
 
-                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                      </button>
-                                                                    <li style="color:red " font-timeout="2s"  >{{error}}</li>
-                                                                </div>
-                                                                <script>
-                                                                    $('#msggfail').show();
-                                                                    setTimeout(function() { $('#msggfail').hide(); }, 5000);
-                                                                </script>
-                                                                
-                                                                
+<body>
+    <!-- Load Navbar -->
 
-                                                                    
-                                            
-                                                               
-                                            
-                                                                {% endfor %}
-                                                            
-                                                          
-                                                            
-                                                        {% endif %}
-                                                        
-                                            
-                                                {% endfor %}
-                                                
-                                                
-                                            
-                                                    
-                                                         
-                                                {% if form.non_field_errors %}
-                                                    <div id="msgfail" class="alert alert-danger" role="alert" >
 
-                                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                          </button>
-                                                        
-                                                        <li style="color:red">{{form.non_field_errors}}</li>
-                                                        
-                                                    </div>
-                                                    <script>
-                                                        $('#msgfail').show();
-                                                        setTimeout(function() { $('#msgfail').hide(); }, 5000);
-                                                    </script>
-                                                {% endif %}
-                                                          
-                                                        
-                                                    
-                                                
-                                            </ul>
+    <!-- main -->
+    <div class="main-w3layouts wrapper">
+        <h1><a href="{% url 'home' %}" class="light-logo">
+                <img src="{% static 'extra-images/logo.png' %}" alt="FoodOnline" width="500">
+            </a></h1>
+        <h1> WELCOME FOODIES</h1>
+        <h4 style=" font-size: 1em;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.617);
+        font-weight: 100;
+        text-transform: capitalize;
+        letter-spacing: 4px;
+        font-family: 'Roboto', sans-serif;">Please fill this form to get yourself onboarded in the foodle marketplace.</h4>
+        <div class="main-agileinfo">
+            <div class="agileits-top">
+                <form action="{% url 'registerUser' %}" class="form-fields-set foodbakery-dev-restaurant-form"
+                    method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div style="color:white ;" class="field-holder">
+                        <label style="padding: 3 ;">First name</label>
+                        <br>
+                        <br>
+                        {{form.first_name}}
+                        <br>
+
+                    </div>
+                    <div style="color:white ;" class="field-holder">
+                        <label>Last name</label>
+                        <br>
+                        <br>
+                        {{form.last_name}}
+                        <br>
+
+                    </div>
+                    
+                    <div style="color:white ;" class="field-holder">
+                        <label>Email Address</label>
+                        <br>
+                        <br>
+                        {{form.email}}
+                        <br>
+
+                    </div>
+                    <div style="color:white ;" class="field-holder">
+                        <label>Username</label>
+                        <br>
+                        <br>
+                        {{form.username}}
+                        <br>
+
+                    </div>
+                    <div style="color:white ;" class="field-holder">
+                        <label>Password</label>
+                        <br>
+                        <br>
+                        {{form.password}}
+                        <br>
+
+                    </div>
+                    <div style="color:white ;" class="field-holder">
+                        <label>Confirm Password</label>
+                        <br>
+                        <br>
+                        {{form.confirm_password}}
+                        <br>
+
+                    </div>
+                    
+                    <div class="wthree-text">
+                        <label class="anim">
+                            <input type="checkbox" class="checkbox" required="">
+                            <span>I Agree To The Terms & Conditions</span>
+                        </label>
+                        <div class="clear"> </div>
+                    </div>
+
+                    
+                    <li>
+                        <ul class="errorlist">
+                            {% for field in form %}
+                                    {% if field.errors %}
+                                   
+                                        
+                                            {% for error in field.errors  %}
                                             
-                                               
-                                            <div class="row">
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="field-holder">
-                                                        <div class="payment-holder">
-                                                            <input type="submit" value="REGISTER" id="btn-next-restaurant-information" class="bgcolor">
-                                                        </div>
-                                                    </div>
-                                                </div>
+                        
+                                            <div id="msggfail" class="alert alert-danger" timeout="5s" role="alert">
+
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                  </button>
+                                                <li style="color:red " font-timeout="2s"  >{{error}}</li>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <!--Load Messages-->
-                                                    {% include 'includes/alerts.html '%}
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </form>
+                                            <script>
+                                                $('#msggfail').show();
+                                                setTimeout(function() { $('#msggfail').hide(); }, 5000);
+                                            </script>
+                                            
+                                            
+
+                                                
+                        
+                                           
+                        
+                                            {% endfor %}
+                                        
+                                      
+                                        
+                                    {% endif %}
+                                    
+                        
+                            {% endfor %}
+                            
+                            
+                        
+                                
+                                     
+                            {% if form.non_field_errors %}
+                                <div id="msgfail" class="alert alert-danger" role="alert" >
+
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    
+                                    <li style="color:red">{{form.non_field_errors}}</li>
+                                    
+                                </div>
+                                <script>
+                                    $('#msgfail').show();
+                                    setTimeout(function() { $('#msgfail').hide(); }, 5000);
+                                </script>
+                            {% endif %}
+                                      
+                                    
+                                
+                            
+                        </ul>
+                        
+                           
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="field-holder">
+                                    <div class="payment-holder">
+                                        
+                                    </div>
+                                </div>
                             </div>
                         </div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-{% endblock %}
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <!--Load Messages-->
+                                {% include 'includes/alerts.html '%}
+                            </div>
+                        </div>
+                    </li>
+                    <input type="submit" value="REGISTER">
+                </form>
+                <p>Already Have an Account? <a href="{% url 'login' %}"> Login Now!</a></p>
+
+            </div>
+        </div>
+
+        <ul class="colorlib-bubbles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <!-- //main -->
+    </div>
+</body>
+
+</html>

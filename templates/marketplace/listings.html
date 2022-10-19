@@ -4,7 +4,7 @@
 {% block content %}
 
 <!-- Main Section Start -->
-<div class="main-section">
+<div style="background: linear-gradient(to top, #c7c7f4, #dfc8e8);" class="main-section">
     <div class="page-section nopadding cs-nomargin" style="margin-top: 0px;padding-top: 60px;padding-bottom: 10px;margin-bottom: 0px;">
         <div class="container">
             <div class="row">
@@ -24,7 +24,7 @@
                             <div class="listing simple">
                                 <ul>
                                     {% for vendor in vendors %}
-                                    <li style="line-height: 15px;">
+                                    <li style="line-height: 15px; box-shadow: 4px 4px 8px 3px rgb(162, 169, 170) ; border-radius: 10px;">
                                         <div class="img-holder">
                                             <figure>
                                                 <a href="#">
@@ -62,14 +62,16 @@
                             </div>
                             
                         </div>
+                        
                         <div class="section-sidebar col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                            <div class="message-box" style="background-color: #fa9918;">
+                            <div style="background:#9696d4 ;" class="message-box" style="background-color: #fa9918;">
                                 <strong>I'm not Listed!</strong><span>is your restaurant or
                                     business not
                                     listed on over site</span>
                                 <a href="{% url 'registerVendor' %}" class="request-btn">Add Your business!</a>
                             </div>
                         </div>
+                      
                     </div>
                 </div>
             </div>

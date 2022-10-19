@@ -3,13 +3,13 @@
 {% block content %}
 
 <!-- Main Section Start -->
-<div class="main-section pt-5">
+<div style="background: linear-gradient(to top, #c7c7f4, #dfc8e8);"  class="main-section pt-5">
     <div class="page-section">
         <div class="container">
             <div class="row">
                 
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                    <div class="tabs-holder horizontal">
+                    <div style="box-shadow: 4px 4px 8px 3px rgb(162, 169, 170) ; border-radius: 10px;" class="tabs-holder horizontal">
                         <ul class="stickynav-tabs nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-shopping-cart text-danger"></i></i>Cart Items</a></li>
                             
@@ -37,7 +37,7 @@
                                                         
                                                         </div>
                                                         <div class="price-holder">
-                                                            <span class="price">${{ item.fooditem.price }}</span>
+                                                            <span class="price">Tk{{ item.fooditem.price }}</span>
 
                                                             <a href="#" class="decrease_cart" data-id="{{ item.fooditem.id }}" id="{{item.id}}" data-url="{% url 'decrease_cart' item.fooditem.id %}" style="margin-right: 28px;"><i class="icon-minus text-color"></i></a>
                                                             <label id="qty-{{item.fooditem.id}}">0</label>
@@ -70,7 +70,7 @@
 
                 <!-- Your order section-->
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <div class="tabs-holder horizontal">
+                    <div style="box-shadow: 4px 4px 8px 3px rgb(162, 169, 170) ; border-radius: 10px;" class="tabs-holder horizontal">
                         <ul class="stickynav-tabs nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#home"><i class="icon- icon-room_service"></i>Your Order</a></li>
                             
@@ -85,21 +85,21 @@
                                             <li style="list-style-type: none;">
                                                     Subtotal
                                                 <span class="price float-right">
-                                                    <span class="currency">$</span>
+                                                    <span class="currency">Tk</span>
                                                     <span id="subtotal">{{ subtotal }}</span>
                                                 </span>
                                             </li>
                                             <li style="list-style-type: none;">
                                                     Tax
                                                 <span class="price float-right">
-                                                  <span class="currency">$</span>
+                                                  <span class="currency">Tk</span>
                                                   <span id="tax">{{ tax }}</span>
                                                 </span>
                                             </li>
                                             <li style="list-style-type: none; font-weight:600;">
                                                    Total
                                                 <span class="price float-right">
-                                                  <span class="currency">$</span>
+                                                  <span class="currency">Tk</span>
                                                   <span id="total">{{ grand_total }}</span>
                                                 </span>
                                             </li>
