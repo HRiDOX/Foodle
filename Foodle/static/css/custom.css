@@ -24,6 +24,10 @@
     color: #000000 !important;
 }
 
+table > tbody > tr > td {
+  border: none !important  
+}
+
 
 
 
