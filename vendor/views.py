@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404,redirect, render
 from .forms import VendorForm,OpeningHourForm
 from accounts.forms import UserProfileForm
-
+from django.http import HttpResponse
 from menu.forms import CategoryForm, FoodItemForm
 
 from accounts.models import UserProfile
@@ -196,19 +196,18 @@ def delete_food(request, pk=None):
 
 
 
-          
 def opening_hours(request):
     opening_hours = OpeningHour.objects.filter(vendor=get_vendor(request))
     form = OpeningHourForm()
     context = {
-        'form':form,
-        'opening_hours':opening_hours
+        'form': form,
+        'opening_hours': opening_hours,
     }
-    return render(request,'vendor/opening_hours.html',context)
+    return render(request, 'vendor/opening_hours.html', context)
         
 
-
-     
+def add_opening_hours(request):
+     return HttpResponse('Add Opening hour')
 
     
 

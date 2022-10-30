@@ -1,4 +1,4 @@
-{% extends 'base_vendor.html' %}
+{% extends 'base.html' %}
 
 {% load static %}
 
@@ -27,7 +27,7 @@
                                         <tr id="hour-{{hour.id}}">
                                             <td><b>{{ hour }}</b></td>
                                             <td>{% if hour.is_closed %}Closed{% else %}{{ hour.from_hour }} - {{ hour.to_hour }}{% endif %}</td>
-                                            <td><a href="#" class="remove_hour" data-url="{% url 'remove_opening_hours' hour.id %}">Remove</a></td>
+                                            <td><a href="#" class="remove_hour" >Remove</a></td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>
@@ -50,7 +50,10 @@
                                     <div class="col-md-3">
                                         {{ form.is_closed }} Set as Closed
                                     </div>
-                                
+                                    <div class="col-md-2">
+                                        <input type="hidden" value="{% url 'add_opening_hours' %}" id="add_hour_url">
+                                        <button class="btn btn-success add_hour">Add Hours</button>
+                                    </div>
                                 </div>
                             </form>
                             
