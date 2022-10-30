@@ -233,6 +233,7 @@ $(document).ready(function(){
             
         }
     }
+    //Add Opening Hour
     $('.add_hour').on('click', function(e){
         e.preventDefault();
         var day = document.getElementById('id_day').value
@@ -264,12 +265,41 @@ $(document).ready(function(){
                 'csrfmiddlewaretoken': csrf_token,
             },
             success: function(response){
-                console.log(response)
+                if (response.status == 'success') {
+                   if (response.is_closed == 'Closed') {
+                     html =  '<tr id="hour-'+response.id+'"><td><b>'+response.day+'</b></td><td>Closed</td><td><a href="#" class="remove_hour" data-url="/vendor/opening-hours/remove/'+response.id+'/">Remove</a></td></tr>'
+                   } else {
+                    html = '<tr id="hour-'+response.id+'"><td><b>'+response.day+'</b></td><td>'+response.from_hour+' - '+response.to_hour+'</td><td><a href="#" class="remove_hour" data-url="/vendor/opening-hours/remove/'+response.id+'/" >Remove</a></td></tr>'
+                    
+                   }
+                    $(".opening_hours").append(html)
+
+                    document.getElementById("opening_hours").reset();
+                } else {
+                    swal(response.message,'', "error")
+                }
             }
         })
         
        } else {
         swal('Please fill all fields', '','info')
        }
-   })
+   });
+
+   //Remove Opening Hour
+   $(document).on('click', '.remove_hour', function(e){
+    e.preventDefault();
+    url = $(this).attr('data-url');
+    
+    $.ajax({
+        type: 'GET',
+        url: url,
+        success: function(response){
+            if(response.status == 'success'){
+                document.getElementById('hour-'+response.id).remove()
+            }
+        }
+    })
+})
+
 });    
