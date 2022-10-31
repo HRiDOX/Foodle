@@ -44,6 +44,8 @@ def vendor_detail(request, vendor_slug):
     today = today_date.isoweekday()
     
     current_opening_hours = OpeningHour.objects.filter(vendor=vendor, day=today)
+   
+    
 
 
 
@@ -59,8 +61,10 @@ def vendor_detail(request, vendor_slug):
         'cart_items': cart_items,
         'opening_hours': opening_hours,
         'current_opening_hours': current_opening_hours,
-   
+       
     }
+
+    
     return render(request, 'marketplace/vendor_detail.html', context)
 
 
