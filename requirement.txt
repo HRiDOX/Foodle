@@ -1,8 +1,9 @@
 asgiref==3.5.2
 Django==4.1
-GDAL @ file:///G:/Foodle/GDAL-3.3.3-cp310-cp310-win_amd64.whl
+GDAL @ file:///E:/Foodle/GDAL-3.4.3-cp310-cp310-win_amd64.whl
 Pillow==9.2.0
 psycopg2==2.9.3
 python-decouple==3.6
+simplejson==3.18.0
 sqlparse==0.4.2
 tzdata==2022.2
