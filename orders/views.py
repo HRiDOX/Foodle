@@ -2,9 +2,10 @@ from django.shortcuts import render,redirect
 from marketplace.models import Cart
 from marketplace.context_processors import get_cart_amounts
 from .forms import OrderForm
-from .models import Order
+from .models import Order, OrderedFood
 import simplejson as json
 from .utils import generate_order_number
+from django.http import HttpResponse, JsonResponse
 # Create your views here.
 
 def place_order(request):
@@ -44,10 +45,57 @@ def place_order(request):
             order.order_number = generate_order_number(order.id)
             order.save()
 
-            return redirect('place_order')
+            
+            context = {
+                'order': order,
+                'cart_items': cart_items,
+                
+            }
+            return render(request, 'orders/place_order.html', context)
+
             
            
         else:
             print(form.errors)
 
     return render(request, 'orders/place_order.html')
+
+
+def payments(request):
+        # Check if the request is ajax or not
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.method == 'POST':
+        # STORE THE PAYMENT DETAILS IN THE PAYMENT MODEL
+        order_number = request.POST.get('order_number')
+        transaction_id = request.POST.get('transaction_id')
+        payment_method = request.POST.get('payment_method')
+        status = request.POST.get('status')
+
+        order = Order.objects.get(user=request.user, order_number=order_number)
+        payment = Payment(
+            user = request.user,
+            transaction_id = transaction_id,
+            payment_method = payment_method,
+            amount = order.total,
+            status = status
+        )
+        payment.save()
+
+        # UPDATE THE ORDER MODEL
+        order.payment = payment
+        order.is_ordered = True
+        order.save()
+
+
+        # MOVE THE CART ITEMS TO ORDERED FOOD MODEL
+        cart_items = Cart.objects.filter(user=request.user)
+        for item in cart_items:
+            ordered_food = OrderedFood()
+            ordered_food.order = order
+            ordered_food.payment = payment
+            ordered_food.user = request.user
+            ordered_food.fooditem = item.fooditem
+            ordered_food.quantity = item.quantity
+            ordered_food.price = item.fooditem.price
+            ordered_food.amount = item.fooditem.price * item.quantity # total amount
+            ordered_food.save()
+        return HttpResponse('saved ordered food')
