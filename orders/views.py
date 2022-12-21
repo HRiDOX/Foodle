@@ -140,3 +140,7 @@ def payments(request):
         }
         return JsonResponse(response)
     return HttpResponse('Payments view') 
+
+
+def order_complete(request):
+    return render(request, 'orders/order_complete.html')
