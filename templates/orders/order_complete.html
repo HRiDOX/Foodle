@@ -43,6 +43,49 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                <div class="row mt-5">
+                    <div class="d-flex justify-content-center col-md-6">
+                        <img src="{% static 'images/paid.png' %}" width="200">
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            <li style="list-style-type: none;">
+                                Subtotal
+                                <span class="price float-right">
+                                    <span class="currency">$</span>
+                                    <span id="subtotal">{{ subtotal }}</span>
+                                </span>
+                            </li>
+
+                            {% for key, value in tax_dict.items %}
+                                {% for i, j in value.items %}
+                                    <li style="list-style-type: none;">
+                                        {{ key }} <small>({{ i }}%)</small>
+                                        <span class="price float-right">
+                                            <span class="currency">$</span>
+                                            <span id="tax-{{ key }}">{{ j }}</span>
+                                        </span>
+                                    </li>
+                                {% endfor %}
+                            {% endfor %}
+
+
+                            <li style="list-style-type: none; font-weight: 600;">
+                                TOTAL
+                                <span class="price float-right">
+                                    <span class="currency">$</span>
+                                    <span id="total">{{ grand_total }}</span>
+                                </span>
+                            </li>
+
+                            
+                            {% if order.payment_method == 'PayPal' %}
+                            <!-- PayPal Checkout Button -->
+                            <div id="paypal-button-container"></div>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
 
             </div>
         </div>
