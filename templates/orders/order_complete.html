@@ -28,6 +28,18 @@
                     </div>
                 </div>
                 <hr>
+                <table class="table">
+                    <tbody>
+                        {% for item in ordered_food %}
+                        <tr>
+                            <td><img src="{{ item.fooditem.image.url }}" width="60" alt="Food Image"></td>
+                            <td>{{ item.quantity }} QTY</td>
+                            <td>${{ item.fooditem.price }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
             </div>
         </div>
     </div>
