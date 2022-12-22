@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from accounts.forms import UserInfoForm, UserProfileForm
 from accounts.models import UserProfile
 from django.contrib import messages
+from orders.models import Order, OrderedFood
 
 
 @login_required(login_url='login')
@@ -30,3 +31,15 @@ def cprofile(request):
     }
 
     return render(request, 'customers/cprofile.html', context)
+
+
+def my_orders(request):
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+
+    context = {
+        'orders': orders,
+    }
+    return render(request, 'customers/my_orders.html', context)
+
+def order_detail(request, order_number):
+    return render(request, 'customers/order_detail.html')
