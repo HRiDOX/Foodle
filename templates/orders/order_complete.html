@@ -74,16 +74,21 @@
                                 TOTAL
                                 <span class="price float-right">
                                     <span class="currency">$</span>
-                                    <span id="total">{{ grand_total }}</span>
+                                    <span id="total">{{ order.total }}</span>
                                 </span>
                             </li>
-
-                            
-                            {% if order.payment_method == 'PayPal' %}
-                            <!-- PayPal Checkout Button -->
-                            <div id="paypal-button-container"></div>
-                            {% endif %}
                         </ul>
+                    </div>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <span class="d-block font-weight-bold">Thanks for ordering with us.</span>
+                        <span>Foodle Team</span>
+                    </div>
+                    <div class="d-flex justify-content-end align-items-end">
+                        <span class="d-block font-weight-bold">Need help?</span>
+                        <span>Call - +91 0011223344</span>
                     </div>
                 </div>
 
