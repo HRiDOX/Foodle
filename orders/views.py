@@ -16,6 +16,10 @@ def place_order(request):
     cart_count = cart_items.count()
     if cart_count <= 0:
         return redirect('marketplace')
+    vendors_ids = []
+    for i in cart_items:
+        if i.fooditem.vendor.id not in vendors_ids:
+            vendors_ids.append(i.fooditem.vendor.id)
 
 
 
@@ -46,6 +50,8 @@ def place_order(request):
             order.payment_method = request.POST['payment_method']
             order.save()
             order.order_number = generate_order_number(order.id)
+            order.vendors.add(*vendors_ids)
+            #start bcz it'll recursivley add vendors_ids
             order.save()
 
             
@@ -131,9 +137,10 @@ def payments(request):
         send_notification(mail_subject, mail_template, context)
 
         # CLEAR THE CART IF THE PAYMENT IS SUCCESS
-        #cart_items.delete()
+        cart_items.delete()
 
         # RETURN BACK TO AJAX WITH THE STATUS SUCCESS OR FAILURE
+        
         response = {
             'order_number': order_number,
             'transaction_id': transaction_id,
