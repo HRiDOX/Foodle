@@ -2,7 +2,8 @@ from django.db import models
 from accounts.models import User
 from menu.models import FoodItem
 from vendor.models import Vendor
-
+import json
+request_object = ''
 
 # Create your models here.
 class Payment(models.Model):
@@ -58,6 +59,44 @@ class Order(models.Model):
         return f'{self.first_name} {self.last_name}'
     def order_placed_to(self):
         return ",".join([str(i) for i in self.vendors.all()])
+    def get_total_by_vendor(self):
+        vendor = Vendor.objects.get(user=request_object.user)
+        subtotal = 0
+        vat = 0
+        vat_dict = {}
+        if self.total_data:
+            total_data = json.loads(self.total_data)
+            data = total_data.get(str(vendor.id))
+
+            for key,val in data.items(): #key is subtotal val is vat_dict
+                subtotal += float(key)
+                val = val.replace("'",'"')
+                val = json.loads(val)
+                vat_dict.update(val)
+                
+                #calculate vat i means tips
+                for i in val:
+                    #print(i)
+                    for j in val[i]: #j eikahne tips er value dekhay
+                        #print(val[i][j])
+                        vat += float(val[i][j])
+                #print(subtotal)
+                #print(vat_dict)
+                #print(key,val)
+            #print(data)
+            #print(total_data)
+        grand_total = float(subtotal) + float(vat)
+        print(subtotal)
+        print(grand_total)
+        print(vat)
+        print(vat_dict)
+        context = {
+            'subtotal': subtotal,
+            'vat_dict': vat_dict, 
+            'grand_total': grand_total,
+        }
+        return context
+
     def __str__(self):
         return self.order_number
 
