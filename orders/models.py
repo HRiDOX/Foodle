@@ -86,10 +86,10 @@ class Order(models.Model):
             #print(data)
             #print(total_data)
         grand_total = float(subtotal) + float(vat)
-        print(subtotal)
-        print(grand_total)
-        print(vat)
-        print(vat_dict)
+        #print(subtotal)
+        #print(grand_total)
+        #print(vat)
+        #print(vat_dict)
         context = {
             'subtotal': subtotal,
             'vat_dict': vat_dict, 
