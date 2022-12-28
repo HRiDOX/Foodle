@@ -143,10 +143,14 @@ def payments(request):
         mail_subject = 'Thank you for ordering with us.'
         mail_template = 'orders/order_confirmation_email.html'
 
+        ordered_food = OrderedFood.objects.filter(order=order)
+
         context = {
             'user': request.user,
             'order': order,
             'to_email': order.email,
+            'ordered_food': ordered_food,
+            'domain': get_current_site(request),
         }
 
         send_notification(mail_subject, mail_template, context)
