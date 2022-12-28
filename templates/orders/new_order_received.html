@@ -24,7 +24,7 @@
       }      
     </style>    
   </head>    
-<body bgcolor="#F5F8FA" style="width: 100%; margin: auto 0; padding:0; font-family:Lato, sans-serif; font-size:16px; color:#33475B; word-break:break-word">
+<body bgcolor="#F5F8FA" style="width: 100%; margin: auto 0; padding:0; font-family:Lato, sans-serif; font-size:16px; color:#000000; word-break:break-word">
   
 <div id="email">
   <table role="presentation" width="100%">
@@ -70,7 +70,7 @@
         <tr>
             <td><img src="http://{{domain}}{{ food.fooditem.image.url }}" alt="Food Image" width="60"></td>
             <td><p style="margin: 0;">{{ food.fooditem }}</p>
-            <small><a href="http://{{ domain }}{% url 'vendor_detail' food.fooditem.vendor.vendor_slug %}" style="color:#ccc;">{{ food.fooditem.vendor.vendor_name }}</a></small>
+            <small><a href="http://{{ domain }}{% url 'vendor_detail' food.fooditem.vendor.vendor_slug %}" style="color:#000000;">{{ food.fooditem.vendor.vendor_name }}</a></small>
             </td>
             <td>{{ food.quantity }}</td>
             <td>${{ food.price }}</td>
@@ -99,9 +99,9 @@
    
   <table role="presentation" bgcolor="#383869" width="100%">
       <tr>
-        <td align="center" style="padding: 15px 15px; color: #fff;">
+        <td align="center" style="padding: 15px 15px; color: #000000;">
           <p>© {% now "Y" %} Foodle Marketplace, All Rights Reserved.</p>
-          <a href="http://{{domain}}" style="color:#fff;">Visit Website</a>      
+          <a href="http://{{domain}}" style="color:#000000;">Visit Website</a>      
         </td>
       </tr>
   </table> 
