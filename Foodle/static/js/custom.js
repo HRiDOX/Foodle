@@ -251,6 +251,8 @@ $(document).ready(function(){
         var is_closed = document.getElementById('id_is_closed').checked
         var csrf_token = $('input[name=csrfmiddlewaretoken]').val()
         var url = document.getElementById('add_hour_url').value
+        console.log(day, from_hour,to_hour , is_closed,csrf_token )
+        console.log('Hey' )
 
        
 
@@ -307,6 +309,30 @@ $(document).ready(function(){
             if(response.status == 'success'){
                 document.getElementById('hour-'+response.id).remove()
             }
+        }
+    })
+})
+
+//Add Seat
+$('.add_seat').on('click', function(e){
+    e.preventDefault();
+    var total_seats = document.getElementById('id_total_seats').value()
+    var avaiable_seats = document.getElementById('id_avaiable_seats').value()
+    var csrf_token = $('input[name=csrfmiddlewaretoken]').val()
+    var url = document.getElementById('add_seat_url').value
+    console.log(total_seats, avaiable_seats ,csrf_token, 'hey' )
+    print(total_seats, avaiable_seats ,csrf_token)
+
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: {
+            'total_seats': total_seats,
+            'avaiable_seats': avaiable_seats,
+            'csrfmiddlewaretoken': csrf_token,
+        },
+        success: function(response){
+            console.log(response)
         }
     })
 })

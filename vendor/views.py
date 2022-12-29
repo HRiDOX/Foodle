@@ -282,18 +282,22 @@ def seat(request):
     return render(request, 'vendor/seat.html', context)
 
 def add_seats(request):
-    #handle the data and save them inside the database
+    #handle data and save inside DB
     if request.user.is_authenticated:
         if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.method == 'POST' :
            total_seats = request.POST.get('total_seats')
            avaiable_seats = request.POST.get('avaiable_seats')
-          
-
-           
-           totalAvailableSeat = Seat.objects.create(vendor=get_vendor(request), total_seats=total_seats, avaiable_seats=avaiable_seats)
-           response = {'status':'success','id':totalAvailableSeat.id,'totalAvailableSeat':totalAvailableSeat.get_seat_display(),'total_seats':totalAvailableSeat.total_seats,'avaiable_seats': totalAvailableSeat.avaiable_seats}
-               
-
-           return JsonResponse(response)                
+           print(total_seats,avaiable_seats)
+           try:
+                totalseats = Seat.objects.create(vendor=get_vendor(request), total_seats=total_seats, avaiable_seats=avaiable_seats)
+                response = {'status': 'success'}
+                return JsonResponse(response) 
+           except IntegrityError as e:
+                response = {'status': 'failed'}
+                return JsonResponse(response) 
         else:
             HttpResponse('Invalid request')
+
+
+   
+   
