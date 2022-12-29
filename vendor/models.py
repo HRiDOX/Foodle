@@ -90,3 +90,17 @@ class OpeningHour(models.Model):
 
     def __str__(self):
         return self.get_day_display()
+
+class Seat(models.Model):
+    vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
+    total_seats = models.IntegerField()
+    avaiable_seats = models.IntegerField()
+   
+
+    class Meta:
+       
+        unique_together = ('vendor', 'total_seats', 'avaiable_seats')
+    def __str__(self):
+        return self.total_seats
+
+    

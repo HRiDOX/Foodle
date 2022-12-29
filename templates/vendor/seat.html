@@ -8,6 +8,7 @@
 <!-- Main Section Start -->
 <div style="background: linear-gradient(to top, #99d6ff, #b3b3ff);" class="main-section">
     {% include 'includes/cover.html' %}
+    
     <div class="page-section account-header buyer-logged-in">
         <div class="container">
             <div class="row">
@@ -18,16 +19,16 @@
                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                     <div class="user-dashboard loader-holder">
                         <div class="user-holder">
-                            <h5 class="text-uppercase">Opening Hours</h5>
+                            <h5 class="text-uppercase">Seat-Setup</h5>
 							<hr>
                           
                             <table class="table opening_hours" style="width: 500px; border: none !important;">
                                 <tbody>
-                                    {% for hour in opening_hours %}
+                                    {% for totalseats in seats %}
                                         <tr id="hour-{{hour.id}}">
-                                            <td><b>{{ hour }}</b></td>
-                                            <td>{% if hour.is_closed %}Closed{% else %}{{ hour.from_hour }} - {{ hour.to_hour }}{% endif %}</td>
-                                            <td><a href="#" class="remove_hour" data-url="{% url 'remove_opening_hours' hour.id %}">Remove</a></td>
+                                            <td><b><h5>Total Seats</h5>{{ totalseats.total_seats }}</b></td>
+                                            <td><b><h5>Seats Avaiable</h5>{{ totalseats.avaiable_seats }}</b></td>
+                                        
                                         </tr>
                                     {% endfor %}
                                 </tbody>
@@ -38,21 +39,23 @@
                             <form id="opening_hours">
                                 {% csrf_token %}
                                 <div class="row">
-                                    <div class="col-md-3">
-                                        {{ form.day }}
+
+                                    <div class="col-md-5">
+                                        <h3>Total Seats</h3>
+                                        {{ form.total_seats }}
                                     </div>
+                                    <div class="col-md-5">
+                                        <h3>Avaiable Seats</h3>
+                                        {{ form.avaiable_seats }}
+                                    </div>
+                                    
+                                   
+                                </div>
+                               <br>
+                                <div class="row">
                                     <div class="col-md-2">
-                                        {{ form.from_hour }}
-                                    </div>
-                                    <div class="col-md-2">
-                                        {{ form.to_hour }}
-                                    </div>
-                                    <div class="col-md-3">
-                                        {{ form.is_closed }} Set as Closed
-                                    </div>
-                                    <div class="col-md-2">
-                                        <input type="hidden" value="{% url 'add_opening_hours' %}" id="add_hour_url">
-                                        <button class="btn btn-success add_hour">Add Hours</button>
+                                        <input type="hidden" value="{% url 'add_seats' %}" id="add_hour_url">
+                                        <button class="btn btn-success add_hour">Save</button>
                                     </div>
                                 </div>
                             </form>

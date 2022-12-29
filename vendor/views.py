@@ -1,11 +1,11 @@
 from django.shortcuts import get_object_or_404,redirect, render
-from .forms import VendorForm,OpeningHourForm
+from .forms import VendorForm,OpeningHourForm, SeatForm
 from accounts.forms import UserProfileForm
 from django.http import HttpResponse,JsonResponse
 from menu.forms import CategoryForm, FoodItemForm
 
 from accounts.models import UserProfile
-from .models import Vendor,OpeningHour
+from .models import Vendor,OpeningHour, Seat
 from django.contrib import messages
 
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -271,3 +271,29 @@ def my_orders(request):
         'orders': orders,
     }
     return render(request, 'vendor/my_orders.html',context)
+
+def seat(request):
+    seats = Seat.objects.filter(vendor=get_vendor(request))
+    form = SeatForm()
+    context = {
+        'form': form,
+        'seats': seats,
+    }
+    return render(request, 'vendor/seat.html', context)
+
+def add_seats(request):
+    #handle the data and save them inside the database
+    if request.user.is_authenticated:
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.method == 'POST' :
+           total_seats = request.POST.get('total_seats')
+           avaiable_seats = request.POST.get('avaiable_seats')
+          
+
+           
+           totalAvailableSeat = Seat.objects.create(vendor=get_vendor(request), total_seats=total_seats, avaiable_seats=avaiable_seats)
+           response = {'status':'success','id':totalAvailableSeat.id,'totalAvailableSeat':totalAvailableSeat.get_seat_display(),'total_seats':totalAvailableSeat.total_seats,'avaiable_seats': totalAvailableSeat.avaiable_seats}
+               
+
+           return JsonResponse(response)                
+        else:
+            HttpResponse('Invalid request')

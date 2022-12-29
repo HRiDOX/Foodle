@@ -6,6 +6,7 @@
             <li class="{% if 'menu-builder' in request.path %}active{% endif %}"><a href="{% url 'menu_builder' %}"><i class="icon-menu5"></i>Menu Builder</a></li>
             <li class="{% if 'opening-hour' in request.path %}active{% endif %}"><a href="{% url 'opening_hours' %}"><i class="icon-time"></i>Opening Hours</a></li>
             <li class="{% if '/my_orders/' in request.path %}active{% endif %}"><a href="{% url 'vendor_my_orders' %}"><i class="icon-add_shopping_cart"></i>Orders</a></li>
+            <li class="{% if 'seat_setup' in request.path %}active{% endif %}"><a href="{% url 'seat' %}"><i class="icon-time"></i>Seat-Setup</a></li>
            
         </ul>
     </div>
