@@ -37,6 +37,26 @@ class Vendor(models.Model):
                     is_open = False
         return is_open
 
+    def is_total_seat(self):
+        current_seat = Seat.objects.filter(vendor=self)
+
+        seats = None
+        for i in  current_seat:
+           
+                seats = i.total_seats
+                
+        return seats
+
+    def is_available_seat(self):
+        current_seat = Seat.objects.filter(vendor=self)
+
+        seats = None
+        for i in  current_seat:
+           
+                seats = i.avaiable_seats
+                
+        return seats
+
 
     def save(self, *args, **kwargs):
         if self.pk is not None:
@@ -93,8 +113,8 @@ class OpeningHour(models.Model):
 
 class Seat(models.Model):
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
-    total_seats = models.IntegerField()
-    avaiable_seats = models.IntegerField()
+    total_seats = models.PositiveIntegerField()
+    avaiable_seats = models.PositiveIntegerField()
    
 
     class Meta:

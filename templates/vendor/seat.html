@@ -22,43 +22,28 @@
                             <h5 class="text-uppercase">Seat-Setup</h5>
 							<hr>
                           
+                            
+                            {% if seats %}
                             <table class="table opening_hours" style="width: 500px; border: none !important;">
                                 <tbody>
                                     {% for totalseats in seats %}
                                         <tr id="hour-{{hour.id}}">
                                             <td><b><h5>Total Seats</h5>{{ totalseats.total_seats }}</b></td>
                                             <td><b><h5>Seats Available</h5>{{ totalseats.avaiable_seats }}</b></td>
+                                            <td><a href="{% url 'edit_seat' totalseats.id %}" style="color:unset;"><i class="fa fa-pencil" aria-hidden="true"></i></a> &nbsp;
                                         
                                         </tr>
                                     {% endfor %}
+                                  
+                                    {% else %}
+                                    <h5 class="text-center">Setup the Seats.</h5>
+                                    <a href="{% url 'add_seat' %}" class="btn btn-info float-right m-1"><i class="fa fa-plus" aria-hidden="true"></i> Add Seat</a>
+                                    {% endif %}
                                 </tbody>
                             </table>
 
                             <br>
 
-                            <form id="opening_hours">
-                                {% csrf_token %}
-                                <div class="row">
-
-                                    <div class="col-md-5">
-                                        <h3>Total Seats</h3>
-                                        {{ form.total_seats }}
-                                    </div>
-                                    <div class="col-md-5">
-                                        <h3>Available Seats</h3>
-                                        {{ form.avaiable_seats }}
-                                    </div>
-                                    
-                                   
-                                </div>
-                               <br>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <input type="hidden" value="{% url 'add_seats' %}" id="add_seat_url">
-                                        <button class="btn btn-success add_seat">Save</button>
-                                    </div>
-                                </div>
-                            </form>
                             
                         </div>
                     </div>

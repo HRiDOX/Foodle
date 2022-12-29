@@ -274,30 +274,86 @@ def my_orders(request):
 
 def seat(request):
     seats = Seat.objects.filter(vendor=get_vendor(request))
-    form = SeatForm()
+
     context = {
-        'form': form,
+        #'form': form,
         'seats': seats,
     }
     return render(request, 'vendor/seat.html', context)
 
-def add_seats(request):
-    #handle data and save inside DB
-    if request.user.is_authenticated:
-        if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.method == 'POST' :
-           total_seats = request.POST.get('total_seats')
-           avaiable_seats = request.POST.get('avaiable_seats')
-           print(total_seats,avaiable_seats)
-           try:
-                totalseats = Seat.objects.create(vendor=get_vendor(request), total_seats=total_seats, avaiable_seats=avaiable_seats)
-                response = {'status': 'success'}
-                return JsonResponse(response) 
-           except IntegrityError as e:
-                response = {'status': 'failed'}
-                return JsonResponse(response) 
+#def add_seats(request):
+#    #handle data and save inside DB
+#    if request.user.is_authenticated:
+#        if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.method == 'POST' :
+#           total_seats = request.POST.get('total_seats')
+#           avaiable_seats = request.POST.get('avaiable_seats')
+#           print(total_seats,avaiable_seats)
+#           try:
+#                totalseats = Seat.objects.create(vendor=get_vendor(request), total_seats=total_seats, avaiable_seats=avaiable_seats)
+#                response = {'status': 'success'}
+#                return JsonResponse(response) 
+#           except IntegrityError as e:
+#                response = {'status': 'failed'}
+#                return JsonResponse(response) 
+#        else:
+#            HttpResponse('Invalid request')
+
+
+
+@login_required(login_url='login_vendor')
+@user_passes_test(check_role_vendor)
+def add_seat(request):
+    if request.method == 'POST':
+        form = SeatForm(request.POST)
+        if form.is_valid():
+            #category_name = form.cleaned_data['category_name']
+            seat = form.save(commit=False)
+            seat.vendor = get_vendor(request)
+            
+            seat.save() # here the category id will be generated
+            
+            form.save()
+            messages.success(request, 'Seat added successfully!')
+            return redirect('seat')
         else:
-            HttpResponse('Invalid request')
+            print(form.errors)
+
+    else:
+        form = SeatForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'vendor/add_seat.html', context)
+
+@login_required(login_url='login_vendor')
+@user_passes_test(check_role_vendor)
+def edit_seat(request, pk=None):
+    seat = get_object_or_404(Seat, pk=pk)
+    if request.method == 'POST':
+        form = SeatForm(request.POST, instance=seat)
+        if form.is_valid():
+           
+            seat = form.save(commit=False)
+            seat.vendor = get_vendor(request)
+           
+            form.save()
+            messages.success(request, 'Seat updated successfully!')
+            return redirect('seat')
+        else:
+            print(form.errors)
+    else:
+        form = SeatForm(instance=seat)
+    context = {
+                    
+        'form': form,
+        'seat': seat,
+            
+    }
+    return render(request, 'vendor/edit_seat.html', context)   
+
+
 
 
    
+
    

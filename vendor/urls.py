@@ -30,7 +30,9 @@ urlpatterns = [
 
     #seat
     path('seat_setup/', views.seat, name='seat'),
-    path('seat_setup/add/', views.add_seats, name='add_seats'),
+    path('seat_setup/add/', views.add_seat, name='add_seat'),
+    path('seat_setup/edit/<int:pk>/', views.edit_seat, name='edit_seat'),
+    #path('seat_setup/update/', views.seat_update, name='seat_update'),
 
    
 ]

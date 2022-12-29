@@ -5,7 +5,7 @@ from accounts.models import UserProfile
 from .context_processors import get_cart_counter,get_cart_amounts
 from menu.models import Category, FoodItem
 
-from vendor.models import Vendor,OpeningHour
+from vendor.models import Vendor,OpeningHour, Seat
 from django.db.models import Prefetch
 from .models import Cart
 from django.contrib.auth.decorators import login_required
@@ -20,6 +20,7 @@ from orders.forms import OrderForm
 def marketplace(request):
     vendors = Vendor.objects.filter(is_approved=True, user__is_active=True)
     vendor_count = vendors.count()
+    
     context = {
         'vendors': vendors,
         'vendor_count': vendor_count,
