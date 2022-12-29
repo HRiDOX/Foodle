@@ -100,7 +100,6 @@ class Seat(models.Model):
     class Meta:
        
         unique_together = ('vendor', 'total_seats', 'avaiable_seats')
-    def __str__(self):
-        return self.total_seats
+    
 
     
