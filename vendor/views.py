@@ -266,7 +266,7 @@ def order_detail(request,order_number):
 
 def my_orders(request):
     vendor = Vendor.objects.get(user=request.user)
-    orders = Order.objects.filter(vendors__in=[vendor.id], is_ordered=True).order_by('created_at')
+    orders = Order.objects.filter(vendors__in=[vendor.id], is_ordered=True).order_by('-created_at')
     context = {
         'orders': orders,
     }
