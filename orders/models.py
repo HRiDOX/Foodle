@@ -39,6 +39,7 @@ class Order(models.Model):
     phone = models.CharField(max_length=15, blank=True)
     email = models.EmailField(max_length=50)
     address = models.CharField(max_length=200)
+    table_no = models.CharField(max_length=10,blank=True)
     country = models.CharField(max_length=15, blank=True)
     state = models.CharField(max_length=15, blank=True)
     city = models.CharField(max_length=50)

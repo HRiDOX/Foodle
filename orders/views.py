@@ -69,6 +69,7 @@ def place_order(request):
             order.phone = form.cleaned_data['phone']
             order.email = form.cleaned_data['email']
             order.address = form.cleaned_data['address']
+            order.table_no = form.cleaned_data['table_no']
             order.country = form.cleaned_data['country']
             order.state = form.cleaned_data['state']
             order.city = form.cleaned_data['city']
